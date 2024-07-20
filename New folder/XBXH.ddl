@@ -1,0 +1,11 @@
+CREATE TABLE tblTournament (id int IDENTITY NOT NULL, name varchar(100) NOT NULL, time date NOT NULL, location varchar(100) NOT NULL, rules varchar(500) NOT NULL, prizes varchar(500) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE tblRound (id int IDENTITY NOT NULL, numRound int NOT NULL, time date NOT NULL, numberOfMatchs int NOT NULL, tblTournamentid int NOT NULL, PRIMARY KEY (id));
+CREATE TABLE tblMatch (id int IDENTITY NOT NULL, numMatch int NOT NULL, tblRoundid int NOT NULL, PRIMARY KEY (id));
+CREATE TABLE tblChess_Match (id int IDENTITY NOT NULL, result varchar(50) NOT NULL, eloGain float(10) NOT NULL, elo float(10) NOT NULL, tblMatchId int NOT NULL, tblChessPlayerid int NOT NULL, PRIMARY KEY (id));
+CREATE TABLE tblChessPlayer (id int IDENTITY NOT NULL, name varchar(255) NOT NULL, dob date NOT NULL, [national] varchar(255) NOT NULL, totalPoint float(10) NOT NULL, totalOpponentPont float(10) NOT NULL, eloCoEfficient float(10) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE tblReceptionist (id int IDENTITY NOT NULL, name varchar(255) NOT NULL, username varchar(50) NOT NULL, password varchar(50) NOT NULL, position varchar(50) NOT NULL, salary float(10) NOT NULL, dob date NOT NULL, [national] varchar(255) NOT NULL, tel varchar(255) NOT NULL, tblTournamentid int NOT NULL, PRIMARY KEY (id));
+ALTER TABLE tblRound ADD CONSTRAINT FKtblRound244832 FOREIGN KEY (tblTournamentid) REFERENCES tblTournament (id);
+ALTER TABLE tblMatch ADD CONSTRAINT FKtblMatch803126 FOREIGN KEY (tblRoundid) REFERENCES tblRound (id);
+ALTER TABLE tblChess_Match ADD CONSTRAINT FKtblChess_M587858 FOREIGN KEY (tblMatchId) REFERENCES tblMatch (id);
+ALTER TABLE tblChess_Match ADD CONSTRAINT FKtblChess_M959427 FOREIGN KEY (tblChessPlayerid) REFERENCES tblChessPlayer (id);
+ALTER TABLE tblReceptionist ADD CONSTRAINT FKtblRecepti560937 FOREIGN KEY (tblTournamentid) REFERENCES tblTournament (id);
